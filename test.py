@@ -7,21 +7,19 @@ def unique(e):
     for x in y:
         if x not in output:
             output.append(x)
-    print(output)
-    return e
+    output
+    return output
 
 def transposeDict(d):
     #this function shall return a transposed dictionary 'd'
-    this = print(dict([(value, key) for key, value in d.items()]))
-    return this
+    return dict([(value, key) for key, value in d.items()])
 
 
 
 def mex(a):
 
     #this function returns the minimal positive integer not present in the list a
-    b = print(min(set(range(1, len(a) + 2)).difference(set(a))))
-    return b
+    return min(set(range(1, len(a) + 2)).difference(set(a)))
 
 
 def frequencyDict(dictionary):
@@ -32,24 +30,23 @@ def frequencyDict(dictionary):
             reference[element] += 1
         else:
             reference[element] = 1
-    z = print(reference)
-    return z
+    return reference
 
 def main():
-    unique([1, 2, 1, 3])
-    unique({5, 1, 3})
-    unique('adsfasdf')
+    print(unique([1, 2, 1, 3]))
+    print(unique({5, 1, 3}))
+    print(unique('adsfasdf'))
 
-    transposeDict({1: 'a', 2: 'b'})
-    transposeDict({1: 1})
-    transposeDict({})
+    print(transposeDict({1: 'a', 2: 'b'}))
+    print(transposeDict({1: 1}))
+    print(transposeDict({}))
 
-    frequencyDict('')
-    frequencyDict('abacaba')
+    print(frequencyDict(''))
+    print(frequencyDict('abacaba'))
 
-    mex([1, 2, 3])
-    mex(['asdf', 123])
-    mex([0, 0, 1, 0])
+    print(mex([1, 2, 3]))
+    print(mex(['asdf', 123]))
+    print(mex([0, 0, 1, 0]))
 
 
 main()
