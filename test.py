@@ -1,32 +1,28 @@
 
 def unique(e):
+    y = list(e)
     #this function returns sorted list of distinct elements of a set 'e'
-    e.sort()
+    y.sort()
+    output = []
+    for x in y:
+        if x not in output:
+            output.append(x)
+    print(output)
     return e
-
-#Test
-e = [1,4,22,13,6]
-print(unique(e))
 
 def transposeDict(d):
     #this function shall return a transposed dictionary 'd'
-    return dict([(value, key) for key, value in d.items()])
+    this = print(dict([(value, key) for key, value in d.items()]))
+    return this
 
-#test
-d = {'a':'apple','b':'ball','c':'cat','d':'dog'}
-print(d)
-print(transposeDict(d))
+
 
 def mex(a):
+
     #this function returns the minimal positive integer not present in the list a
-    a.sort()
-    b = a[-1] + 1
+    b = print(min(set(range(1, len(a) + 2)).difference(set(a))))
     return b
 
-#test
-
-a = [4,7,81,2,3]
-print(mex(a))
 
 def frequencyDict(dictionary):
     reference = {}
@@ -36,9 +32,24 @@ def frequencyDict(dictionary):
             reference[element] += 1
         else:
             reference[element] = 1
-    return reference
+    z = print(reference)
+    return z
 
-#test
+def main():
+    unique([1, 2, 1, 3])
+    unique({5, 1, 3})
+    unique('adsfasdf')
 
-dictionary = 'adasdasnoidajsdo'
-print(frequencyDict(dictionary))
+    transposeDict({1: 'a', 2: 'b'})
+    transposeDict({1: 1})
+    transposeDict({})
+
+    frequencyDict('')
+    frequencyDict('abacaba')
+
+    mex([1, 2, 3])
+    mex(['asdf', 123])
+    mex([0, 0, 1, 0])
+
+
+main()
