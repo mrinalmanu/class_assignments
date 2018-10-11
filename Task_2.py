@@ -32,9 +32,9 @@ def goodPairs(a, b):
 def makeShell(n):
     shell = []
     for i in range(int(n)):
-        shell.append([[0] * (i + 1)])
+        shell.append([0] * (i + 1))
     for j in range(int(n-1),0,-1):
-        shell.append([[0] * j])
+        shell.append([0] * j)
     return shell
 
 
