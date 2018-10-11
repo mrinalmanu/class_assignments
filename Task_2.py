@@ -41,7 +41,7 @@ def addborder(a):
     assert type(a) == list
     up_to_down = a
     right_to_left = max(len(x) for x in up_to_down)
-    wrap = ['+','--'*right_to_left,'+']
+    wrap = ['+'+'-'*right_to_left+'+']
     for x in up_to_down:
         wrap.append('|'+(x+'-'*right_to_left)[:right_to_left]+'|')
     wrap.append('+'+'-'*right_to_left+'+')
