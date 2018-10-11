@@ -63,6 +63,9 @@ def main():
     print(goodPairs([4, 5, 6, 7, 8], [8, 9, 10, 11, 12]))
     print(goodPairs([2], [2]))
     print(goodPairs([7, 8, 9], [5, 3, 2]))
+    
+    print(addborder(['abc',
+               'def']))
 
     print(makeShell(1))
     print(makeShell(2))
