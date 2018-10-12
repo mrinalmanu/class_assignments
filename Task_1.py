@@ -1,7 +1,6 @@
-
 def unique(e):
     y = list(e)
-    #this function returns sorted list of distinct elements of a set 'e'
+    # this function returns sorted list of distinct elements of a set 'e'
     y.sort()
     output = []
     for x in y:
@@ -10,15 +9,15 @@ def unique(e):
     output
     return output
 
+
 def transposeDict(d):
-    #this function shall return a transposed dictionary 'd'
+    # this function shall return a transposed dictionary 'd'
     return dict([(value, key) for key, value in d.items()])
 
 
-
 def mex(a):
-
-    #this function returns the minimal positive integer not present in the list a
+    # this function returns the minimal positive integer not
+    # present in the list a
     return min(set(range(1, len(a) + 2)).difference(set(a)))
 
 
@@ -31,6 +30,7 @@ def frequencyDict(dictionary):
         else:
             reference[element] = 1
     return reference
+
 
 def main():
     print(unique([1, 2, 1, 3]))
