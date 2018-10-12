@@ -45,7 +45,7 @@ def addborder(a):
     for x in up_to_down:
         wrap.append('|'+(x+'-'*right_to_left)[:right_to_left]+'|')
     wrap.append('+'+'-'*right_to_left+'+')
-    return '\n'.join(wrap)
+    return wrap
 
 
 def main():
