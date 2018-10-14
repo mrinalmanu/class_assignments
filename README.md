@@ -1,2 +1,3 @@
-# class_on_python
-Semester 1 assignments
+# Systems Biology and Bioinformatics, class of 2018
+
+# Semester 1 assignments
