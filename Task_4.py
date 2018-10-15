@@ -6,12 +6,11 @@ def factorial(n):
         return n*factorial(n-1)
 
 
-# 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
-
 def fibonacci(n):
     if n==1 or n==2:
         return 1
     return fibonacci(n-1)+fibonacci(n-2)
+
 
 def recurrent(n):
     if n == 0:
@@ -40,18 +39,20 @@ def digitsum(n):
         array.append(int(x))
     return sum(array)
 
+
 def reversestring(s):
     return s[::-1]
+
 
 def perms(n):
     if not n:
         return
-
     for i in xrange(2**n):
         s = bin(i)[2:]
         s = "0" * (n-len(s)) + s
         yield s
 
+        
 def concatnumbers(n, m):
     array1 = []
 
