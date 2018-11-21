@@ -2,9 +2,11 @@ import itertools
 from functools import reduce
 
 
-def squares(a):
-    for i in a:
-        yield i*i
+def squares(n):
+    this = []
+    for elem in n:
+        this.append(elem*elem)
+    return this
 
 
 def repeatntimes(elems, n):
@@ -56,5 +58,8 @@ def main():
     print(productif([], [True, True, True, True]))
     print(productif([100], [False]))
     print(productif(itertools.count(1), [True, True, True, False, True]))
-
+    
+    for i in repeatntimes(squares([1, 2, 3]), 2):
+    print(i)
+        
 main()
