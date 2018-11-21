@@ -30,19 +30,37 @@ def ackermann(m, n):
     else:
         return ackermann(m - 1, ackermann(m, n - 1))
 
-
+    
+"""
 def digitsum(n):
     array = []
     string = str(n)
     for x in string:
         array.append(int(x))
     return sum(array)
+"""
 
 
+def digitsum(n):                        # digitsum(n) using recursion
+    if n == 0:
+        return 0
+    else:
+        return n % 10 + digitsum(int(n / 10))
+
+"""
 def reversestring(s):
     return s[::-1]
+"""
 
 
+def reversestring(string):
+    if len(string) == 0:
+        return string
+    else:
+        return reversestring(string[1:]) + string[0]
+
+
+"""
 def perms(n):
     if not n:
         return
@@ -50,8 +68,19 @@ def perms(n):
         s = bin(i)[2:]
         s = "0" * (n-len(s)) + s
         yield s
+"""
 
-        
+
+def perms(array):
+    if len(array) == 1:
+        return [array]
+    res = []
+    for elem in perms(array[1:]):
+        for i in range(len(array)):
+            res.append(elem[:i] + array[0:1] + elem[i:])
+    return res
+
+"""
 def concatnumbers(n, m):
     array1 = []
 
@@ -63,6 +92,9 @@ def concatnumbers(n, m):
         array1.append(int(y))
     new = ''.join(map(str, array1))
     return new
+"""
+def concatnumbers(n, m):
+    return int(str(n)+str(m))
 
 
 def main():
@@ -103,4 +135,6 @@ def main():
     print(concatnumbers(123, 789))
     print(concatnumbers(1000, 2))
 
+    print(perms([1,2,3]))
+    
 main()
