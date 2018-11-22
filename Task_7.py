@@ -85,6 +85,7 @@ def powers(n, m):
         return dict.append(i ^ (i % m))
     return dict
 
+
     ######################
     # Remaining programs #
     ######################
@@ -133,8 +134,6 @@ def spiral(n):
             i += 1
         h1 += 1
     return a
-
-
 
 
 def brackets2(n, m):
@@ -198,6 +197,7 @@ def brackets2(n, m):
 
         yield matrix
 
+        
 def brackets22(m, n):
     
     # Another failed attempt at making brackets22()
