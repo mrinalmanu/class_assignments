@@ -3,15 +3,13 @@ from functools import reduce
 
 
 def squares(n):
-    this = []
-    for elem in n:
-        this.append(elem*elem)
-    return this
-
-
+    for it in n:
+        yield int(it) ** 2
+        
 def repeatntimes(elems, n):
-    for i in elems:
-        yield elems*n
+    it = itertools.tee(elems, n)
+    for i in it:
+        yield from i
 
 
 def evens(x):
