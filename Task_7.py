@@ -80,10 +80,10 @@ def subpalindrome(string):
 
 def powers(n, m):
     # Return dict with values of i to power i modulo m for every i from 1 to n
-    dict = []
+    one = dict()
     for i in range(n):
-        return dict.append(i ^ (i % m))
-    return dict
+        one[i] = (i ^ (i % m))
+    return one
 
 
     ######################
