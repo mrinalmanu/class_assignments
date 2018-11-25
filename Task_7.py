@@ -6,9 +6,9 @@ def isIPv4(addr):
     # Checking for a valid IP
     try:
         socket.inet_aton(addr)
-        True
+        return True
     except socket.error:
-        False
+        return False
 
 
 def popcount(n):
@@ -56,12 +56,10 @@ def fibonacci(count):
 
 
 def subpalindrome(string):
-
     def check(word):
         if len(word) == 1:
             return True
         return all(word[i] == word[-1 * (i + 1)] for i in range(len(word) // 2))
-
 
     pal = ''
     max = 0
@@ -79,12 +77,17 @@ def subpalindrome(string):
 
 
 def powers(n, m):
-    # Return dict with values of i to power i modulo m for every i from 1 to n
-    one = dict()
-    for i in range(n):
-        one[i] = (i ^ (i % m))
-    return one
+    this = {}
 
+    def power(n):
+        a = 1
+        for i in range(n):
+            a *= n
+        return a
+
+    for i in range(1, n + 1):
+        this[i] = power(i) % m
+    return this
 
     ######################
     # Remaining programs #
@@ -191,24 +194,22 @@ def brackets2(n, m):
 
         return p5
 
-
     for item in cache:
         matrix = logic(item)
 
         yield matrix
 
-        
+
 def brackets22(m, n):
-    
     # Another failed attempt at making brackets22()
-   
+
     ell = ()
     if m == 0:
-       ell = ("".join(seq) for seq in itertools.product("[]", repeat=n))
-    elif n ==0:
+        ell = ("".join(seq) for seq in itertools.product("[]", repeat=n))
+    elif n == 0:
         ell = ("".join(seq) for seq in itertools.product("()", repeat=m))
     else:
-        ell = ("".join(seq) for seq in itertools.product("()[]", repeat= n and m ))
+        ell = ("".join(seq) for seq in itertools.product("()[]", repeat=n and m))
 
     return ell
 
@@ -226,12 +227,12 @@ def main():
     print(subpalindrome('abaxfgf'))
     print(subpalindrome('abacabad'))
 
-    isIPv4('192.168.0.15')
-    isIPv4('255.255.255.255')
-    isIPv4('555.555.555.555')
-    isIPv4('190+2.168.0.0')
-    isIPv4('abacaba')
-    isIPv4('')
+    print(isIPv4('192.168.0.15'))
+    print(isIPv4('255.255.255.255'))
+    print(isIPv4('555.555.555.555'))
+    print(isIPv4('190+2.168.0.0'))
+    print(isIPv4('abacaba'))
+    print(isIPv4(''))
 
     print(fibonacci(5))
 
@@ -245,7 +246,7 @@ def main():
     for i in (brackets2(3, 0)):
         print(i)
 
-    for i in brackets22(2,1):
+    for i in brackets22(2, 1):
         for j in i:
             print(j)
 
