@@ -81,3 +81,20 @@ class LinkedQueue:
         self.add = None
         self.node = None
         self.emptynode = 0
+        
+        #### TESTING ####
+
+def main():
+    q = LinkedQueue()
+    print(q.push(1))
+    print(q.push(2))
+    print(q.push(10))
+    print(len(q))  # 3
+    print(q.pop())  # 1
+    print(q.pop())  # 2
+    print(len(q))  # 1
+    print(q.clear())
+    print(len(q))  # 0
+
+main()
+
