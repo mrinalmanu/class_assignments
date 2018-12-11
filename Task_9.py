@@ -1,121 +1,131 @@
 import os
 
-class FileSystemError(BaseException):
+
+class FileSystemError(Exception):
     pass
 
+
 class FSItem(object):
-    module = os.path
-
-    def __len__(self):
-        # Return the size of the file in bytes
-        # FSError if the file doesn't exist
-        return os.stat(self).st_size
-
-    __len__: property(
-        __len__, None, None,
-        # Size of the file, in bytes.
-    )
 
     def __init__(self, path):
-        # Creates new File instance by given path to file
-        # Raise FileSystemError if the file is already present
-        # Behaves like the "touch" command of BASH shell
-        if self.isfile(path):
-            raise FileSystemError("Can't create file: {0} already exist".format(self.getname()))
-        fd = os.open(self, os.O_WRONLY | os.O_CREAT, 0o666)
-        os.close(fd)
-        os.utime(self, None)
-        return self
-
+        ''' Initialize current file item '''
+        self.path = os.path.normpath(path)
+        
 
     def rename(self, new):
-        # Renames current FSItem
-        if not self.isfile(path):
-            raise FileSystemError("Can't create file: {0}, is not a file".format(self.getname()))
-        os.rename(self, new)
-        return self._next_class(new)
+        ''' Returns a new name '''
+        if os._exists(self):
+            raise FileSystemError("No can do, {0}, already exists".format(self.path))
+        else:
+            lf.path = os.path.split(self.path)[0] + '\\' + new
+            
 
-    def create(self, path):
-        # Creates new item in OS, here a directory
-        if not self.isdir(path):
-            raise FileSystemError("Can't create dir: {0} already exist".format(self.getname()))
-        os.mkdir(self, path, 0o777)
+    def create(selfs):
+        ''' Make new item in OS '''
+        if os.path.exists(self.path):
+            raise FileSystemError("No can do, {0}, already exists".format(self.path))
+        else:
+            open(self.path, 'a').close()
+
 
     def getname(self):
-        # Return the name of the current item
-        return self._next_class(self.module.basename(self))
+        ''' Name of current item '''
+        return os.path.split(self.path)[1]
+    
 
     def isfile(self):
-        # Check if the given file exists
+        ''' True/ False for file '''
         return os.path.isfile(self.path)
+    
 
-    def isdir(self):
-        # Check if the current item exists and the current item
-        # is in directory
-        os.path.isdir(self.path)
+    def isdirectory(self):
+        ''' True/ False for dir '''
+        return os.path.isdir(self.path)
+    
 
 class File(FSItem):
+    
 
-    # Child class of FSItem
+    def __init__(self, path):
+        ''' Makes new file in OS '''
 
-    def make(self):
-        # Creates new item in OS, here a file
-        if self.isfile(path):
-            raise FileSystemError("Can't create file: {0} already exist".format(self.getname()))
-        fd = os.open(self, os.O_WRONLY | os.O_CREAT, 0o666)
-        os.close(fd)
-        os.utime(self, None)
-        return self
+        if os.path.exists(self.path):
+            raise FileSystemError("No can do, {0}, already exists".format(self.path))
+        else:
+            super(File, self).__init__(path)
+            
 
+    def __len__(self):
+        ''' Tells length of the file '''
+        if os.path.exists(self.path):
+            os.path.getsize(self.path)
+        else:
+            raise FileSystemError("No can do, {0}, doesn't exists".format(self.path))
+            
 
     def getcontent(self):
-        # Count the number of lines in a file
-        return len(self.text(encoding, errors).splitlines(retain))
+        ''' Return list of lines in the file '''
+        if os.path.exists(self.path):
+            with open(self.path, "r") as f:
+                return list(map(lambda x: x.strip(), f.readlines()))
+        else:
+            raise FileSystemError("No can do, {0}, already exists".format(self.path))
+            
 
     def __iter__(self):
-        # Return an iterator of lines in the given file
-        # Raises FileSystemError if file does not exist
-        # Reuse method getcontent here.
-        for __iter__ in iter(lambda: f.read(size) or None, None):
-            yield line
+        ''' Return iterator for line '''
+        if os.path.exists(self.path):
+            with open(self.path) as f:
+                self.all_lines = f.readlines()
+            self.iterate = 0
+            return self
+        else:
+            raise FileSystemError('{0}, dose not exist'.format(self.path))
+            
+
+    def __next__(self):
+        if self.iterate < len(self.all_lines):
+            x = self.all_lines[self.iterate].strip()
+            self.iterate += 1
+            return self
+        else:
+            raise FileSystemError("{0}, does not exist".format(self.path))
+           
 
 class Directory(FSItem):
-    # Class for working with directories
-    # Child of FSItem
+    
+
     def __init__(self, path):
-        # Creates new Directory
-        if self.__init__(path):
-            raise FileSystemError("Can't create Directory: {0}, already exists".format(self.getname()))
-        os.mkdir(self, path)
+        ''' Makes a new dir '''
+        if os.path.exists(self.path):
+            raise FileSystemError('No can do, {0}, already exists'.format(self.path))
+        else:
+            os.mkdir(self.path, mode=0o777)
+            
 
-    def items(self, *args, **kwargs):
-        # Yields FSItem instances of items inside of current directory.
-        return (
-            item
-            for item in self.walk(*args, **kwargs)
-            if item.isdir()
-        )
+    def items(self):
+        ''' leads items inside current dir'''
+        if os.path.exists(self.path):
+            for name in os.listdir(self.path):
+                yield FSItem(self.path + '\\' + name)
+        else:
+            raise FileSystemError("{0}, does not exist".format(self.path))
+            
 
-    def files(self, *args, **kwargs):
-        # List of the files in this directory
-        return [p for p in self.listdir(*args, **kwargs) if p.isfile()]
-
-    def subdirectories(self, *args, **kwargs):
-        # Yields Directory instances of directories inside of current directory.
-        return [p for p in self.listdir(*args, **kwargs) if p.isdir()]
-
-    def filesrecursive(self, *args, **kwargs):
-        # Yields File instances of files inside of this
-        # directory, inside of subdirectories of this directory and so on
-        return (
-            item
-            for item in self.walk(*args, **kwargs)
-            if item.isfile()
-        )
+    def files(self):
+        ''' lists all files inside current dir '''
+        if os.path.exists(self.path):
+            for name in os.listdir(self.path):
+                if os.path.isfile(self.path + '\\' + name):
+                    yield File(self.path + '\\' + name)
+        else:
+            raise FileSystemError("{0} directory not exists".
+                                  format(self.path))
+            
 
     def getsubdirectory(self, match=None, errors='strict'):
-        # Returns Directory instance with subdirectory
-        # of current directory with name "name"
+        ''' Returns Directory instance with subdirectory
+        of current directory with name "name" '''
         class Handlers:
             def strict(msg):
                 raise
@@ -156,13 +166,14 @@ class Directory(FSItem):
             if isdir:
                 for item in child.walk(errors=errors, match=match):
                     yield item
+                    
 
-def main():
-
-    Directory.create("dir", "C:\\Users\\LENOVO\\PycharmProjects\\untitled")
-    os.chdir("C:\\Users\\LENOVO\\PycharmProjects\\untitled\\dir")
-    File.make("new1.txt")
-    File.make("new2.txt")
-
-
-main()
+    def filesrecursive(self, *args, **kwargs):
+        ''' Yields File instances of files inside of this
+        directory, inside of subdirectories of this directory and so on '''
+        return (
+            item
+            for item in self.walk(*args, **kwargs)
+            if item.isfile()
+        )
+    
