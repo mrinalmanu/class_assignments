@@ -5,9 +5,8 @@ from Task_9 import *
 
 
 def main(args):
-
     cwd = os.getcwd()
-    user_name = print(cwd.split(os.sep)[2]+':')
+    user_name = print(cwd.split(os.sep)[2] + ':')
     print("Welcome to BioShell!\n")
     while True:
         cmdtokens = input('{path}$ '.format(path=cwd)).split()
@@ -16,23 +15,26 @@ def main(args):
         cmd = cmdtokens[0]
         cmdargs = cmdtokens[1:]
         if cmd == 'ls':
-            dirlist = os.listdir("/usr")
+            dirlist = os.listdir(os.getcwd())
             print(dirlist)
         elif cmd == 'cd':
-            path = os.get_exec_path()
-            new_path = ''.join(cmdargs)
-            if FSItem.isdirectory(new_path):
-                os.chdir('"'+new_path+'"')
-            elif path == new_path:
-                pass
-            else:
-                print('Error! There is no such directory!')
+            try:
+                path = str(os.getcwd())
+                new_path = ''.join(cmdargs)
+                if FSItem.isdirectory(new_path):
+                    os.chdir('"' + new_path + '"')
+                elif path == new_path:
+                    pass
+                else:
+                    print('Error! There is no such directory!')
+            except:
+                print("I don't understand!")
         elif cmd == 'cat':
             new_path = ''.join(cmdargs)
             if os.path.isfile(new_path):
                 with open(new_path, 'r') as file:
                     for line in file:
-                        print(line)
+                        print(line.strip('\n'))
         elif cmd == 'head':
             number_of_rows = 10
             new_path = ''.join(cmdargs)
@@ -52,11 +54,14 @@ def main(args):
         elif cmd == 'pwd':
             print(os.getcwd())
         elif cmd == 'touch':
-            new_path = ''.join(cmdargs)
-            File(new_path).create()
+            try:
+                new_path = ''.join(cmdargs)
+                File(new_path).create()
+            except:
+                print("The item is already there. Don't touch!")
         elif cmd == 'find':
             find_file = ''.join(cmdargs)
-            all_paths = list(map(lambda x: x.get_path_name(), Directory(os.getcwd()).filesrecursive()))
+            all_paths = os.listdir(cwd)
             for path in all_paths:
                 if find_file in os.path.split(path)[1]:
                     print(path)
@@ -86,4 +91,3 @@ def main(args):
 
 if __name__ == '__main__':
     main(sys.argv)
-    
