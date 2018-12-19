@@ -11,7 +11,8 @@ class FSItem(object):
 
     def __init__(self, path):
         ''' Creates new FSItem instance by given path to file '''
-        self.path = path
+        self.path = os.path.abspath(path)
+        self.item_type = None
 
     def rename(self, newname):
         ''' Renames current item
@@ -40,17 +41,11 @@ class FSItem(object):
 
     def isfile(self):
         ''' Returns True if current item exists and current item is file, False otherwise '''
-        if os.path.isfile(self.path):
-            return True
-        else:
-            return False
+        return os.path.isfile(self.path)
 
     def isdirectory(self):
         ''' Returns True if current item exists and current item is directory, False otherwise '''
-        if os.path.isdir(self.path):
-            return True
-        else:
-            return False
+        return os.path.isdir(self)
 
 
 class File(FSItem):
