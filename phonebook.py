@@ -169,8 +169,8 @@ Usage:
     python phonebook.py create           phonebook.ph
     python phonebook.py lookup           name phonebook.ph
     python phonebook.py add              'full name' 'number' phonebook.ph
-    python phonebook.py change           'full name' 'number' phonebook.ph
-    python phonebook.py remove           'full name' phonebook.ph
+    python phonebook.py change           'previous name' 'previous number' 'new name' 'new number' phonebook.ph
+    python phonebook.py remove           'full name' 'number' phonebook.ph
     python phonebook.py reverse-lookup   'full name' phonebook.ph
     python phonebook.py view
     python phonebook.py about
