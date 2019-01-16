@@ -31,6 +31,7 @@ def lookup(args):
     try:
         with open(phonebook) as f:
             return [line for line in f if line.index(name) >= 0]
+	f.close()
     except IOError:
         return ['Error: no such phonebook.']
     except ValueError:
