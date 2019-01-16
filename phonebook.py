@@ -21,10 +21,8 @@ def create(args):
     phonebook = args[1]
     # Create empty phonebook
     with open(phonebook, 'w') as f:
-	f.close()
+        f.close()
         return ['Sucessfully created %s.\n' % phonebook]
-	
-
 
 
 def lookup(args):
@@ -32,9 +30,9 @@ def lookup(args):
     name = args[1]
     phonebook = args[2]
     try:
-        with open(phonebook) as f: 
-	    intermediate_variable = [line for line in f if line.index(name) >= 0]
-	    f.close()
+        with open(phonebook) as f:
+            intermediate_variable = [line for line in f if line.index(name) >= 0]
+            f.close()
             return intermediate_variable
     except IOError:
         return ['Error: no such phonebook.']
@@ -49,9 +47,8 @@ def add(args):
     phonebook = args[3]
     with open(phonebook, 'a') as f:
         f.write('%s %s\n' % (name, number))
-	f.close()
+        f.close()
         return ["Successfully added %s." % name]
-	
 
 
 def change_or_remove(args):
@@ -109,7 +106,7 @@ def about(args):
 def main(args=sys.argv[1:]):
     # Command line processing
     if len(args) == 0:
-    	print(USAGE)
+        print(USAGE)
     else:
         # Command validation
         command = args[0].lower()
@@ -123,7 +120,7 @@ def main(args=sys.argv[1:]):
             print(('Error: expected %d argument(s) for the %s command'
                    % (VALID_COMMANDS[command], command)))
             return 1
-    
+
         commands = {
             'create': create,
             'lookup': lookup,
@@ -141,6 +138,7 @@ def main(args=sys.argv[1:]):
             return 0
         except:
             pass
+
 
 USAGE = """
 
@@ -210,7 +208,6 @@ Author Information:
 	Shake it, shake it! :)
 
 """
-
 
 if __name__ == '__main__':
     status = main()
