@@ -22,6 +22,8 @@ def create(args):
     # Create empty phonebook
     with open(phonebook, 'w') as f:
         return ['Sucessfully created %s.\n' % phonebook]
+	f.close()
+
 
 
 def lookup(args):
@@ -46,6 +48,7 @@ def add(args):
     with open(phonebook, 'a') as f:
         f.write('%s %s\n' % (name, number))
         return ["Successfully added %s." % name]
+	f.close()
 
 
 def change_or_remove(args):
