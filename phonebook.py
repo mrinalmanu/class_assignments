@@ -3,13 +3,14 @@
 import glob
 import os
 import sys
+import fileinput
 
 # Store valid commands and the number of arguments they take
 VALID_COMMANDS = {'create': 1,
                   'lookup': 2,
                   'add': 3,
-                  'change': 3,
-                  'remove': 2,
+                  'change': 5,
+                  'remove': 3,
                   'reverse-lookup': 2,
                   'view': 0,
                   'about': 0
@@ -24,28 +25,21 @@ def create(args):
         f.close()
         return ['Sucessfully created %s.\n' % phonebook]
 
+
 def lookup(args):
     """Returns entries in the phonebook containing the given name"""
     name = args[1]
     phonebook = args[2]
     try:
         with open(phonebook) as f:
-            g = []
-            for line in f.readlines():
-                # python can do regexes, but this is for s fixed string only
-
-                if name in line:
-                    idx1 = line.find('"')
-                    idx2 = line.find('"', idx1 + 1)
-                    field = line[idx1 + 1:idx2 - 1]
-                    g.append(field)
-                    print(field)
-            if len(g) == 0:
-                print('{} not found'.format(name))
-
-
+            intermediate_variable = [line for line in f if line.index(name) >= 0]
+            f.close()
+            return intermediate_variable
     except IOError:
         return ['Error: no such phonebook.']
+    except ValueError:
+        return ['Error: %s not found.' % name]
+
 
 def add(args):
     """Adds an entry to the phonebook"""
@@ -58,33 +52,46 @@ def add(args):
         return ["Successfully added %s." % name]
 
 
-
-def change_or_remove(args):
+def change(args):
     """Changes or removes an entry in the phonebook"""
     command = args[0].lower()
     name = args[1]
-    phonebook = args[-1]
+    number = args[2]
+    new_name = args[3]
+    new_number = args[4]
+    phonebook = args[5]
+    game = name + ' ' + number
+    new_game = new_name + ' ' + new_number
     try:
-        os.rename(phonebook, 'temp.pb')
-        with open('temp.pb') as f_in, open(phonebook, 'w') as f_out:
-            for line in f_in:
-                if line.index(name) >= 0:
-                    # Write information to file if changing
-                    if command == 'change':
-                        number = args[2]
-                        f_out.write(('%s %s\n' % (name, number)))
-                    # Ignore if removing
-                else:
-                    f_out.write(line)
-        
-        if command == 'change':
+        with fileinput.FileInput(phonebook, inplace=True, backup='.bak') as file:
+            for line in file:
+                print(line.replace(game, new_game), end='')
             return ['Successfully changed %s.\n' % name]
-        else:
+
+    except OSError:
+        return ['Error: no such phonebook.']
+    except ValueError:
+        return ['Error: %s not found.' % name]
+
+def remove(args):
+    command = args[0].lower()
+    name = args[1]
+    number = args[2]
+    new_name = ''
+    new_number = ''
+    game = name + ' ' + number
+    new_game = new_name + ' ' + new_number
+    phonebook = args[3]
+    try:
+        with fileinput.FileInput(phonebook, inplace=True, backup='.bak') as file:
+            for line in file:
+                print(line.replace(game, new_game), end='')
             return ['Successfully removed %s.\n' % name]
     except OSError:
         return ['Error: no such phonebook.']
     except ValueError:
         return ['Error: %s not found.' % name]
+
 
 
 def validate_args(args):
@@ -133,8 +140,8 @@ def main(args=sys.argv[1:]):
             'create': create,
             'lookup': lookup,
             'add': add,
-            'change': change_or_remove,
-            'remove': change_or_remove,
+            'change': change,
+            'remove': remove,
             'reverse-lookup': lookup,
             'view': view,
             'about': about
@@ -205,6 +212,14 @@ Add entries to the created phonebook using the following:
 To view all the phonebook use the following:
 
 	python3 view
+
+To change an entry in the phonebook use the following:
+	
+	python3 phonebook.py change "Natural Banana" "+3655429698" "Sorry Shaqtiman" "+666 666 666" book-Vashisth.ph
+
+To remove an entry in the phonebook use the following:
+	
+	python3 phonebook.py change "Sorry Shaqtiman" "+666 666 666" book-Vashisth.ph
 
 Author Information:
 
