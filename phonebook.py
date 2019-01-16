@@ -32,9 +32,10 @@ def lookup(args):
     name = args[1]
     phonebook = args[2]
     try:
-        with open(phonebook) as f:
-            return [line for line in f if line.index(name) >= 0]
-	f.close()
+        with open(phonebook) as f: 
+	    intermediate_variable = [line for line in f if line.index(name) >= 0]
+	    f.close()
+            return intermediate_variable
     except IOError:
         return ['Error: no such phonebook.']
     except ValueError:
