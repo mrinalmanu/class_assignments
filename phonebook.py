@@ -31,13 +31,22 @@ def lookup(args):
     phonebook = args[2]
     try:
         with open(phonebook) as f:
-            intermediate_variable = [line for line in f if line.index(name) >= 0]
-            f.close()
-            return intermediate_variable
+            g = []
+            for line in f.readlines():
+                # python can do regexes, but this is for s fixed string only
+
+                if name in line:
+                    idx1 = line.find('"')
+                    idx2 = line.find('"', idx1 + 1)
+                    field = line[idx1 + 1:idx2 - 1]
+                    g.append(field)
+                    print(field)
+            if len(g) == 0:
+                print('{} not found'.format(name))
+
+
     except IOError:
         return ['Error: no such phonebook.']
-    except ValueError:
-        return ['Error: %s not found.' % name]
 
 
 def add(args):
