@@ -24,7 +24,6 @@ def create(args):
         f.close()
         return ['Sucessfully created %s.\n' % phonebook]
 
-
 def lookup(args):
     """Returns entries in the phonebook containing the given name"""
     name = args[1]
@@ -48,7 +47,6 @@ def lookup(args):
     except IOError:
         return ['Error: no such phonebook.']
 
-
 def add(args):
     """Adds an entry to the phonebook"""
     name = args[1]
@@ -58,6 +56,7 @@ def add(args):
         f.write('%s %s\n' % (name, number))
         f.close()
         return ["Successfully added %s." % name]
+
 
 
 def change_or_remove(args):
@@ -77,7 +76,7 @@ def change_or_remove(args):
                     # Ignore if removing
                 else:
                     f_out.write(line)
-        os.remove('temp.pb')
+        
         if command == 'change':
             return ['Successfully changed %s.\n' % name]
         else:
@@ -152,11 +151,11 @@ def main(args=sys.argv[1:]):
 USAGE = """
 
 /***
- *       ___   __                   ___              __     ___   ___ 
+ *       ___   __                   ___              __     ___   ___
  *      / _ \ / /  ___   ___  ___  / _ ) ___  ___   / /__  <  /  / _ \
  *     / ___// _ \/ _ \ / _ \/ -_)/ _  |/ _ \/ _ \ /  '_/  / /_ / // /
- *    /_/   /_//_/\___//_//_/\__//____/ \___/\___//_/\_\  /_/(_)\___/ 
- *                                                                    
+ *    /_/   /_//_/\___//_//_/\__//____/ \___/\___//_/\_\  /_/(_)\___/
+ *
  */
 
 Usage:
@@ -175,11 +174,11 @@ NOTE: Please add a .ph extension to the name of the phonebook. In order to disti
 ABOUT = """
 
 /***
- *       ___   __                   ___              __     ___   ___ 
+ *       ___   __                   ___              __     ___   ___
  *      / _ \ / /  ___   ___  ___  / _ ) ___  ___   / /__  <  /  / _ \
  *     / ___// _ \/ _ \ / _ \/ -_)/ _  |/ _ \/ _ \ /  '_/  / /_ / // /
- *    /_/   /_//_/\___//_//_/\__//____/ \___/\___//_/\_\  /_/(_)\___/ 
- *                                                                    
+ *    /_/   /_//_/\___//_//_/\__//____/ \___/\___//_/\_\  /_/(_)\___/
+ *
  */
 
 This is a simple commandline script to manage phonebooks.
